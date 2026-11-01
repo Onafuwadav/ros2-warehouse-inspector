@@ -1,0 +1,11 @@
+# Build output
+build/
+install/
+log/
+
+# Python
+__pycache__/
+
+# Secrets
+.env
+
