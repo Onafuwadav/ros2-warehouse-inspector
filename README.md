@@ -11,7 +11,7 @@
   <h3 align="center">ROS 2 Warehouse Inspector</h3>
 
   <p align="center">
-    A simulated mobile warehouse inspection robot built with ROS 2, Nav2 and OpenCV that patrols shelves and checks markers, reporting findings to a live web dashboard, with a grounded AI assistant for querying inspection data to speed up fault diagnosis.
+    Simulated ROS 2 warehouse inspection robot with AI assistant
   </p>
 </div>
 
@@ -48,8 +48,11 @@
 ## About The Project
 
 <!-- Add a screenshot of the warehouse world here: [![Screenshot][product-screenshot]](#) -->
+A simulated mobile warehouse inspection robot built with ROS 2, Nav2 and OpenCV that patrols shelves and checks markers, reporting findings to a live web dashboard, with a grounded AI assistant for querying inspection data to speed up fault diagnosis.
 
-> **Everything here is simulated** (Gazebo). No real robot hardware is used, and every result in this repo comes from a script you can re-run.
+
+> **Everything here is simulated** in Gazebo, so no is hardware used and every result is reproducible from scripts in this repo.
+
 
 | Part | What | Status |
 |---|---|---|
@@ -62,10 +65,13 @@
 
 ### Built With
 
-* [![ROS 2][ROS2-badge]][ROS2-url]
-* [![Gazebo][Gazebo-badge]][Gazebo-url]
-* [![C++][Cpp-badge]][Cpp-url]
-* [![Python][Python-badge]][Python-url]
+[![ROS 2][ROS2-badge]][ROS2-url]
+
+[![Gazebo][Gazebo-badge]][Gazebo-url]
+
+[![C++][Cpp-badge]][Cpp-url]
+
+[![Python][Python-badge]][Python-url]
 
 <!-- Add as each part lands: FastAPI, PostgreSQL, React, TypeScript, Docker, GitHub Actions -->
 
@@ -83,6 +89,46 @@
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+<!--
+### Explore the warehouse
+```sh
+ros2 launch inspector_bringup warehouse.launch.py rviz:=true
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+Drive the robot with the keyboard and see the camera, lidar and TF in RViz.
+
+[IMAGE: screenshot of the warehouse world]
+
+### Build a map
+```sh
+ros2 launch inspector_bringup slam.launch.py
+```
+Drive around until the map is complete, then save it to `maps/`.
+
+### Run an inspection patrol
+```sh
+ros2 launch inspector_bringup inspection.launch.py
+```
+The robot visits every shelf, reads its marker and checks image focus.
+
+### Reproduce the results
+```sh
+make eval
+```
+Regenerates every table and plot in `results/`.
+
+### Dashboard
+```sh
+docker compose up
+```
+Open localhost:5173, log in, and click the map to send the robot a goal.
+Live demo: (link)
+
+### Ask the assistant
+On the Ask page, type a question such as "Which shelves failed this week, and why?"
+
+[IMAGE: GIF of the agent moving and the answer appearing]
+-->
 
 
 <!-- ROADMAP -->
