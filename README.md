@@ -21,9 +21,9 @@ A simulated mobile warehouse inspection robot built with ROS 2 that patrols shel
 
 ### Built With
 
-[![ROS 2][ROS2-badge]][ROS2-url] [![Gazebo][Gazebo-badge]][Gazebo-url] [![Python][Python-badge]][Python-url]
+[![ROS 2][ROS2-badge]][ROS2-url] [![Gazebo][Gazebo-badge]][Gazebo-url] [![C++][Cpp-badge]][Cpp-url] [![Python][Python-badge]][Python-url]
 
-<!-- Add as each part lands: c++, FastAPI, PostgreSQL, React, TypeScript, Docker, GitHub Actions -->
+<!-- Add as each part lands: FastAPI, PostgreSQL, React, TypeScript, Docker, GitHub Actions -->
 
 
 ## Getting Started
@@ -52,8 +52,7 @@ David Onafuwa
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
-
-
+Used [Steve Macenski's](https://github.com/SteveMacenski/slam_toolbox/blob/ros2/config/mapper_params_online_async.yaml) slam toolbox config as starting point 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [license-shield]: https://img.shields.io/github/license/Onafuwadav/ros2-warehouse-inspector.svg?style=for-the-badge
