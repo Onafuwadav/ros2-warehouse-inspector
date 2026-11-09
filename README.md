@@ -1,159 +1,38 @@
 <!-- PROJECT SHIELDS -->
 [![MIT License][license-shield]][license-url]
 
-
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <!-- Add a logo later: <img src="docs/images/logo.png" alt="Logo" width="80" height="80"> -->
 
-  <h3 align="center">ROS 2 Warehouse Inspector</h3>
+  <h1 align="center">ROS 2 Warehouse Inspector</h1>
 
   <p align="center">
     Simulated ROS 2 warehouse inspection robot with AI assistant
   </p>
 </div>
 
-
-
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#author">Author</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
-
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 <!-- Add a screenshot of the warehouse world here: [![Screenshot][product-screenshot]](#) -->
-A simulated mobile warehouse inspection robot built with ROS 2, Nav2 and OpenCV that patrols shelves and checks markers, reporting findings to a live web dashboard, with a grounded AI assistant for querying inspection data to speed up fault diagnosis.
-
-
-> **Everything here is simulated** in Gazebo, so no is hardware used and every result is reproducible from scripts in this repo.
-
-
-| Part | What | Status |
-|---|---|---|
-| A | Autonomous inspection robot (SLAM, Nav2, ArUco, focus check) | In progress |
-| B | Telemetry backend (FastAPI + PostgreSQL) and React dashboard | Planned |
-| C | Docker, CI and a live demo link | Planned |
-| D | Grounded AI assistant for inspection data queries | Planned |
-
-
+A simulated mobile warehouse inspection robot built with ROS 2 that patrols shelves, checks markers and reports findings to a live web dashboard, with a grounded AI assistant for querying inspection data to speed up fault diagnosis
 
 ### Built With
 
-[![ROS 2][ROS2-badge]][ROS2-url]
+[![ROS 2][ROS2-badge]][ROS2-url] [![Gazebo][Gazebo-badge]][Gazebo-url] [![Python][Python-badge]][Python-url]
 
-[![Gazebo][Gazebo-badge]][Gazebo-url]
-
-[![C++][Cpp-badge]][Cpp-url]
-
-[![Python][Python-badge]][Python-url]
-
-<!-- Add as each part lands: FastAPI, PostgreSQL, React, TypeScript, Docker, GitHub Actions -->
+<!-- Add as each part lands: c++, FastAPI, PostgreSQL, React, TypeScript, Docker, GitHub Actions -->
 
 
-
-<!-- GETTING STARTED -->
 ## Getting Started
 
-### Prerequisites
+### Dependencies
 
 ### Installation
 
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-<!--
-### Explore the warehouse
-```sh
-ros2 launch inspector_bringup warehouse.launch.py rviz:=true
-ros2 run teleop_twist_keyboard teleop_twist_keyboard
-```
-Drive the robot with the keyboard and see the camera, lidar and TF in RViz.
-
-[IMAGE: screenshot of the warehouse world]
-
-### Build a map
-```sh
-ros2 launch inspector_bringup slam.launch.py
-```
-Drive around until the map is complete, then save it to `maps/`.
-
-### Run an inspection patrol
-```sh
-ros2 launch inspector_bringup inspection.launch.py
-```
-The robot visits every shelf, reads its marker and checks image focus.
-
-### Reproduce the results
-```sh
-make eval
-```
-Regenerates every table and plot in `results/`.
-
-### Dashboard
-```sh
-docker compose up
-```
-Open localhost:5173, log in, and click the map to send the robot a goal.
-Live demo: (link)
-
-### Ask the assistant
-On the Ask page, type a question such as "Which shelves failed this week, and why?"
-
-[IMAGE: GIF of the agent moving and the answer appearing]
--->
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-**Part A: inspection robot**
-- [ ] **M1** Warehouse world: a Gazebo warehouse with ArUco-tagged shelves, the TurtleBot3 spawned in it and driven by keyboard, with camera, lidar and TF shown in RViz
-- [ ] **M2** SLAM map: drive the robot around to build a map of the warehouse, save it and reload it
-- [ ] **M3** Autonomous patrol: a C++ mission node sends the robot to every shelf with Nav2, with a script measuring success rate and time to goal
-- [ ] **M4** Perception: detect shelf markers with OpenCV, score image sharpness with Tenengrad, and slow down and re-check when the camera is blurred
-- [ ] **M5** Sensor fusion: an EKF fuses noisy wheel odometry and IMU, and its error is measured against ground truth
-
-**Part B: backend and dashboard**
-- [ ] **M6** Backend: FastAPI and PostgreSQL store runs, poses, detections and events, with login and tests
-- [ ] **M7** Live dashboard: the robot streams telemetry over WebSockets, and the dashboard shows it on a live map where you click to send goals
-
-**Part C: deployment**
-- [ ] **M8** CI/CD and live demo: every push is built and tested, and the dashboard and API are deployed to a public link
-
-**Part D: AI assistant**
-- [ ] **M9** Assistant backend: the model answers questions only by calling tools that query the robot's data, and an evaluation script scores it on 20 test questions
-- [ ] **M10** Ask page: type a question, watch the agent move to the shelves it is checking, and get an answer that links to the runs and photos behind it
-
-**Wrap-up**
-- [ ] **M11** Architecture write-up, demo video and evaluation results
+### Usage
 
 
 
@@ -173,8 +52,6 @@ David Onafuwa
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
-
-* [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
 
 
 
