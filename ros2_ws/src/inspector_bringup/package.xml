@@ -26,11 +26,11 @@
   <!-- TurtleBot3 Waffle model and bridge config for Harmonic -->
   <exec_depend>nav2_minimal_tb3_sim</exec_depend>
 
-  <!-- Visualisation and driving in terminal -->
+  <!-- Visualisation and Terminal driving -->
   <exec_depend>rviz2</exec_depend>
   <exec_depend>teleop_twist_keyboard</exec_depend>
 
-  <!-- Mapping -->
+  <!-- Mapping and Navigation-->
   <exec_depend>slam_toolbox</exec_depend>
   <exec_depend>nav2_bringup</exec_depend>
   <exec_depend>nav2_map_server</exec_depend>
