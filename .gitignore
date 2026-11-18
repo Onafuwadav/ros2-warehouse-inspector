@@ -3,6 +3,9 @@ build/
 install/
 log/
 
+# Machine specific
+.vscode/
+
 # Python
 __pycache__/
 
