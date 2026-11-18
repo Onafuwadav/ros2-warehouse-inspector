@@ -1,0 +1,9 @@
+# Ask mission node for every result of the current/last run
+
+# Run command:
+#   ros2 service call /mission_node/get_report inspector_interfaces/srv/GetInspectionReport
+---
+string run_id
+InspectionResult[] results
+uint32 markers_ok
+uint32 markers_failed

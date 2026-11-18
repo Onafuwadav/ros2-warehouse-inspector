@@ -1,0 +1,22 @@
+# Visit each shelf's inspection pose, look at marker and record InspectionResult
+
+# Run command:
+#   ros2 action send_goal --feedback /inspect_shelves inspector_interfaces/action/InspectShelves "{shelves: [], laps: 1}"
+
+# --- Goal ---
+string[] shelves # Shelves to visit, in order(empty = all shelves)
+uint32 laps # Times to repeat route
+---
+# --- Result ---
+string run_id
+InspectionResult[] results
+uint32 markers_ok
+uint32 markers_failed
+float64 duration_s
+---
+# --- Feedback ---
+string state 
+string current_shelf
+uint32 waypoint_index
+uint32 waypoint_count
+float64 distance_remaining_m

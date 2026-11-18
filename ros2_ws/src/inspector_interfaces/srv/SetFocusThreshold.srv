@@ -1,0 +1,9 @@
+# Change focus threshold (ros2 param set)
+
+# Request
+float64 threshold
+---
+# Response
+bool success
+float64 previous_threshold
+string message
