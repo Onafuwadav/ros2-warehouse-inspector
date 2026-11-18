@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<package format="3">
+  <name>inspector_mission</name>
+  <version>0.0.0</version>
+  <description>C++ mission state machine: visits shelf waypoints through Nav2's NavigateToPose action</description>
+  <maintainer email="Donafuwa@outlook.com">David Onafuwa</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- client side of ROS 2 actions -->
+  <depend>rclcpp</depend>
+ 
+  <!-- Defines the NavigateToPose action it sends goals with -->
+  <depend>rclcpp_action</depend>
+
+  <depend>nav2_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>inspector_interfaces</depend>
+
+  <!-- Reads shelf waypoint YAML file -->
+  <depend>yaml-cpp</depend>
+
+  <test_depend>ament_cmake_gtest</test_depend>
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
