@@ -27,6 +27,9 @@
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp_action/rclcpp_action.hpp"
 #include "std_msgs/msg/string.hpp"
+#include "tf2/exceptions.h"
+#include "tf2_ros/buffer.h"
+#include "tf2_ros/transform_listener.h"
 
 namespace inspector_mission
 {
@@ -62,6 +65,9 @@ public:
         RCLCPP_ERROR(get_logger(), "%s", e.what());
       }
     }
+
+    tf_buffer_ = std::make_unique<tf2_ros::Buffer>(get_clock());
+    tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
 
     state_pub_ = create_publisher<std_msgs::msg::String>(
       "~/state", rclcpp::QoS(1).transient_local());
@@ -154,7 +160,8 @@ private:
   {
     active_goal_ = handle;
     cancel_requested_ = false;
-    run_id_ = "run-" + std::to_string(now().nanoseconds());
+    published_.clear();
+    run_id_ = "run-" + std::to_string(rclcpp::Clock(RCL_SYSTEM_TIME).now().nanoseconds());
     started_at_s_ = nowSeconds();
 
     const auto goal = handle->get_goal();
@@ -271,15 +278,27 @@ private:
     msg.status = static_cast<std::uint8_t>(r.status);
     msg.focus_score = r.best_focus;
     msg.dwell_time_s = r.dwell_time_s;
-    // TODO(David): fill robot_pose from TF (map -> base_footprint) and
-    // marker_position_error_m once the detector gives a pose (M4).
+
+    try {
+      const auto tf = tf_buffer_->lookupTransform("map", "base_footprint", tf2::TimePointZero);
+      msg.robot_pose.position.x = tf.transform.translation.x;
+      msg.robot_pose.position.y = tf.transform.translation.y;
+      msg.robot_pose.position.z = tf.transform.translation.z;
+      msg.robot_pose.orientation = tf.transform.rotation;
+    } catch(const tf2::TransformException & e) {
+      RCLCPP_WARN(get_logger(), "no map -> base_footprint: %s", e.what());
+    }
+
+    // fix marker_position_error_m once the detector gives pose
     msg.marker_position_error_m = -1.0;
     return msg;
   }
 
   void publishResult(const Result & r)
   {
-    result_pub_->publish(toMsg(r));
+    auto msg = toMsg(r);
+    result_pub_->publish(msg);
+    published_.push_back(msg);
     const bool ok = r.status == ResultStatus::OK;
     event(
       ok ? RunEvent::INFO : RunEvent::WARN, ok ? "MARKER_OK" : "MARKER_FAILED",
@@ -291,9 +310,9 @@ private:
   {
     ok = 0;
     failed = 0;
-    for (const auto & r : logic_.results()) {
-      out.push_back(toMsg(r));
-      (r.status == ResultStatus::OK ? ok : failed)++;
+    for (const auto & msg : published_) {
+      out.push_back(msg);
+      (msg.status == InspectionResult::OK ? ok : failed)++;
     }
   }
 
@@ -324,7 +343,7 @@ private:
     feedback->waypoint_index = static_cast<std::uint32_t>(logic_.index());
     feedback->waypoint_count = static_cast<std::uint32_t>(logic_.size());
     feedback->distance_remaining_m = distance_remaining_m_;
-    // TODO(David): current_shelf (needs the route, or expose it from MissionLogic).
+    feedback->current_shelf = logic_.getCurrentShelf();
     active_goal_->publish_feedback(feedback);
   }
 
@@ -359,7 +378,11 @@ private:
   bool cancel_requested_{false};
 
   std::shared_ptr<InspectGoalHandle> active_goal_;
+  std::vector<InspectionResult> published_;
   NavGoalHandle::SharedPtr nav_goal_;
+
+  std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
+  std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
 
   rclcpp_action::Server<InspectShelves>::SharedPtr action_server_;
   rclcpp_action::Client<NavigateToPose>::SharedPtr nav_client_;

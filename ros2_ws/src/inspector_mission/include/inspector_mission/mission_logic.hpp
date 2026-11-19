@@ -94,6 +94,7 @@ public:
   std::size_t index() const {return index_;}
   std::size_t size() const {return route_.size();}
   const std::vector<Result> & results() const {return results_;}
+  std::string getCurrentShelf() const;
   const MissionConfig & config() const {return config_;}
   void setFocusThreshold(double threshold) {config_.focus_threshold = threshold;}
 

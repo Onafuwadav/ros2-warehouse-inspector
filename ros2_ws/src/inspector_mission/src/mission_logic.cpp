@@ -53,6 +53,12 @@ MissionLogic::MissionLogic(MissionConfig config)
 {
 }
 
+std::string MissionLogic::getCurrentShelf() const
+{
+  const bool active = state_ == State::NAVIGATING || state_ == State::INSPECTING;
+  return (active && index_ < route_.size()) ? route_[index_].shelf : "";
+}
+
 Command MissionLogic::next()
 {
   Command command;

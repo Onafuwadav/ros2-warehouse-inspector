@@ -135,3 +135,31 @@ TEST(Mission, EmptyRouteFinishes)
   EXPECT_EQ(logic.state(), State::DONE);
   EXPECT_TRUE(logic.results().empty());
 }
+
+TEST(Mission, GetCurrentShelf)
+{
+  MissionLogic logic;
+  logic.start(twoWaypoints(), 0.0);
+
+  auto name = logic.getCurrentShelf();
+  ASSERT_FALSE(name.empty());
+  EXPECT_EQ(name, "shelf_A1");
+
+  logic.onNavFailed(1.0);
+  name = logic.getCurrentShelf();
+  ASSERT_FALSE(name.empty());
+  EXPECT_EQ(name, "shelf_A2");
+
+  logic.onNavFailed(2.0);
+  name = logic.getCurrentShelf();
+  EXPECT_EQ(logic.state(), State::DONE);
+  EXPECT_EQ(name, "");
+}
+
+TEST(Mission, NoShelfAfterCancel)
+{
+  MissionLogic logic;
+  logic.start(twoWaypoints(), 0.0);
+  logic.cancel();
+  EXPECT_EQ(logic.getCurrentShelf(), "");
+}
