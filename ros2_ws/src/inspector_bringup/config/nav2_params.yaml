@@ -9,6 +9,14 @@
 # - xy_goal_tolerance: 0.25 -> 0.01 (closer stop in front of markers)
 # - set_initial_pose: true (with pose (0, 0, 0)
 # - laser_max_range: 100 -> 20
+# - plugin: "nav2_mppi_controller::MPPIController" -> "nav2_rotation_shim_controller::RotationShimController"
+# - primary_controller: "" -> "nav2_mppi_controller::MPPIController"
+# - angular_dist_threshold: -> 0.785
+# - forward_sampling_distance: -> 0.5
+# - rotate_to_heading_angular_vel: -> 1.0
+# - max_angular_accel: -> 3.2
+# - simulate_ahead_time: -> 1.0
+# - rotate_to_goal_heading: -> true
 
 # Changes to be real TB3 values
 # - vx_max/min: +/-0.5 -> +/-0.26 
