@@ -1,5 +1,4 @@
-// Unit tests for the mission state machine. No ROS, no Nav2: we play the
-// node's part by calling the event methods and checking the Commands.
+// Unit tests for the mission state machine
 
 #include <gtest/gtest.h>
 
