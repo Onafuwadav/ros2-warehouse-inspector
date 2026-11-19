@@ -15,6 +15,7 @@ find_package(nav2_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(inspector_interfaces REQUIRED)
 find_package(yaml-cpp REQUIRED)
+find_package(tf2_ros REQUIRED)
 
 find_package(std_msgs REQUIRED)
 
@@ -33,6 +34,7 @@ target_link_libraries(mission_node
   mission_logic
   rclcpp::rclcpp
   rclcpp_action::rclcpp_action
+  tf2_ros::tf2_ros
   ${nav2_msgs_TARGETS}
   ${geometry_msgs_TARGETS}
   ${std_msgs_TARGETS}
