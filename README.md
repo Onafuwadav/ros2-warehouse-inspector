@@ -45,13 +45,13 @@
 </div>
 
 ## About The Project
-Shelf audits done by hand are slow making them rare and causing inventory records to become inaccurate drift between them. This robot audits shelves on patrols and checks their markers. Planned next: reporting to a live web dashboard, and a grounded AI assistant for querying inspection data to speed up fault diagnosis
+Shelf audits done by hand are slow making them rare and causing inventory records to become inaccurate drift between them. This robot audits shelves on patrols and checks their markers and reports to a live web dashboard, with a grounded AI assistant for querying inspection data to speed up fault diagnosis
 
 
 <details>
-  <summary><b>System Architecture</b></summary>
+  <summary>System Architecture</summary>
   
-Planned architecture. See the Roadmap for what is built so far
+This is the planned system architecture. See the Roadmap for what is built so far:
 
 ```mermaid
 flowchart LR
@@ -92,27 +92,31 @@ flowchart LR
 
 
 ### Tech Stack
-[![ROS 2][ros-badge]][ros-url] [![Gazebo][gazebo-badge]][gazebo-url] [![Nav2][nav2-badge]][nav2-url] [![C++][cpp-badge]][cpp-url] [![Python][py-badge]][py-url] [![CMake][cmake-badge]][cmake-url] [![GoogleTest][gtest-badge]][gtest-url]
-<!-- M4: [![OpenCV][opencv-badge]][opencv-url] -->
-<!-- M6: [![FastAPI][fastapi-badge]][fastapi-url] [![PostgreSQL][postgres-badge]][postgres-url] [![SQLAlchemy][sqlalchemy-badge]][sqlalchemy-url] [![pytest][pytest-badge]][pytest-url] -->
-<!-- M7: [![TypeScript][ts-badge]][ts-url] [![React][react-badge]][react-url] -->
-<!-- M8: [![Docker][docker-badge]][docker-url] [![GitHub Actions][actions-badge]][actions-url] -->
+[![C++][cpp-badge]][cpp-url] [![Python][py-badge]][py-url] <!-- M7 [![TypeScript][ts-badge]][ts-url] -->[![CMake][cmake-badge]][cmake-url] 
+
+[![ROS 2][ros-badge]][ros-url] [![Gazebo][gazebo-badge]][gazebo-url] [![Nav2][nav2-badge]][nav2-url] <!-- M4: [![OpenCV][opencv-badge]][opencv-url] -->
+
+[![GoogleTest][gtest-badge]][gtest-url] <!-- M6 [![pytest][pytest-badge]][pytest-url] M8: [![Docker][docker-badge]][docker-url] [![GitHub Actions][actions-badge]][actions-url] -->
+
+<!-- M6: [![FastAPI][fastapi-badge]][fastapi-url] [![PostgreSQL][postgres-badge]][postgres-url] [![SQLAlchemy][sqlalchemy-badge]][sqlalchemy-url]  --> <!-- M7: [![React][react-badge]][react-url] -->
 
 
 ## Getting Started
  
 ### Prerequisites
-- Ubuntu 24.04 with [ROS 2 Jazzy](https://docs.ros.org/en/jazzy/Installation.html) (desktop) and Gazebo Harmonic
-- Nav2, slam_toolbox and the TurtleBot3 simulation packages:
+- Ubuntu 24.04 with ROS 2 Jazzy and Gazebo Harmonic
+- Nav2, slam_toolbox and TurtleBot3 sim packages:
 
   ```bash
   sudo apt install ros-jazzy-navigation2 ros-jazzy-nav2-bringup ros-jazzy-slam-toolbox \
     ros-jazzy-nav2-minimal-tb3-sim
   ```
+  
 <!-- M6 onwards:
 - Docker Engine with the Compose plugin
 - Node.js 20+ and Python 3.12 to run backend or dashboard outside of Docker
 -->
+
 
 <!-- Installation
 ### Installation
@@ -130,10 +134,10 @@ source install/setup.bash
 ### Run Locally
 | Command | What it does |
 |---|---|
-| `ros2 launch inspector_bringup navigation.launch.py` | World, AMCL, Nav2 and RViz on the saved map |
-| `ros2 launch inspector_bringup inspection.launch.py` | Mission node (later also camera, ArUco, focus and bridge) |
-| `docker compose up --build` | Backend, database and dashboard (from M6) |
-| `colcon test && colcon test-result --verbose` | Unit tests and ROS linters |
+| `ros2 launch inspector_bringup navigation.launch.py` | Launches warehouse, AMCL, Nav2 and RViz on the saved map |
+| `ros2 launch inspector_bringup inspection.launch.py` | Starts all the inspection nodes and backend bridge |
+| `docker compose up --build` | Builds images then starts the backend, database and dashboard |
+| `colcon test && colcon test-result --verbose` | Runs unit tests and ROS linters |
 -->
 
 
@@ -144,12 +148,115 @@ source install/setup.bash
 ros2 action send_goal --feedback /inspect_shelves \
   inspector_interfaces/action/InspectShelves "{shelves: [shelf_B1, shelf_A1], laps: 1}"
 ```
-An empty `shelves: []` visits every shelf. The feedback shows the state, the current shelf and the distance left. The result lists one entry per marker with its status, dwell time and the robot's pose.
+An empty `shelves: []` visits every shelf
 -->
 
-<!-- 
+
+
+<!--
 ## Results
+
+All numbers below come from scripts in `eval/` which are re-run by `eval/run_all.sh` and then `eval/update_readme.py` updates the tables with each table ending with the commit SHA it came from
 -->
+
+<!-- M3
+<details>
+  <summary>Navigation over 10 laps</summary>
+
+This data from `eval/nav_success.py` shows how reliable the robot is and how quickly it gets around. Each row shows data for a full patrol of all 16 waypoints then the last row is combined data
+-->
+
+<!-- results:nav:start -->
+<!-- results:nav:end -->
+
+<!-- M3
+</details>
+-->
+
+<!-- M4
+<details>
+  <summary>Marker detection against camera blur</summary>
+
+This data from `eval/detection_rate.py` shows at what point the robot stops reading the marker and that it reports BLURRY and not a false OK. Each row shows readings at each strength level of the blur injector
+-->
+
+<!-- results:detection:start -->
+<!-- results:detection:end -->
+
+<!-- M4
+</details>
+-->
+
+<!-- M4
+<details>
+  <summary>Focus score and blur threshold</summary>
+
+This data from `eval/focus_vs_blur.py` is evidence for the chosen focus threshold. Each row shows the images sharpness score data at each blur strength
+-->
+
+<!-- results:focus:start -->
+<!-- results:focus:end -->
+
+<!-- M4
+</details>
+-->
+
+<!-- M4
+<details>
+  <summary>Perception latency</summary>
+
+This data is from the timing logs in the detector and focus nodes over one patrol showing how long it takes to process each camera frame and checking the robot keeps up with the camera. This is checking if the processing time is longer than the time between each new frame the camera sends since if it is then the robot will fall behind, frames will queue up or get dropped, and the robot will react late. Each row shows readings at each processing stage: ArUco marker detection, Marker pose estimation, Image sharpness scoring
+-->
+
+<!-- results:latency:start -->
+<!-- results:latency:end -->
+
+<!-- M4
+</details>
+-->
+
+<!-- M5
+<details>
+  <summary>Localisation error vs ground truth</summary>
+
+This data is from `eval/localization_error.py` showing what is added to the raw odometry by EKF and AMCL. Each row compares one pose source against Gazebo's true pose over the same patrol
+-->
+
+<!-- results:localization:start -->
+<!-- results:localization:end -->
+
+<!-- M5
+</details>
+-->
+
+<!-- Part E
+<details>
+  <summary>Regression gate</summary>
+
+This data from `scenarios/` shows that a change making the robot worse is blocked before it merges. Each row is a scenario run on every PR and a screenshot showing the gate blocking a worse Nav2 change
+-->
+
+<!-- results:regression:start -->
+<!-- results:regression:end -->
+
+<!-- Part E
+</details>
+-->
+
+<!-- Part D
+<details>
+  <summary>Assistant evaluation</summary>
+
+This data is from `eval/assistant_eval.py` and shows that the assistant's answers are grounded in the data. Each row is a model asked 20 fixed questions about recorded runs
+-->
+
+<!-- results:assistant:start -->
+<!-- results:assistant:end -->
+
+<!-- Part D
+</details>
+-->
+
 
 ## Roadmap
  
