@@ -1,14 +1,20 @@
 # Build output
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
 build/
 install/
 log/
 
+# Raw logs 
+eval/runs/
+
 # Machine specific
-.vscode/
+.vscode/*
+!.vscode/extensions.json
 
 # Python
 __pycache__/
 
 # Secrets
 .env
-
