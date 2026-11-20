@@ -204,6 +204,9 @@ private:
       return;
     }
     apply(logic_.onTick(nowSeconds()));
+    if (!active_goal_) {
+      return; 
+    }
     publishFeedback();
   }
 
@@ -338,6 +341,9 @@ private:
 
   void publishFeedback()
   {
+    if (!active_goal_) {
+      return; 
+    }
     auto feedback = std::make_shared<InspectShelves::Feedback>();
     feedback->state = toString(logic_.state());
     feedback->waypoint_index = static_cast<std::uint32_t>(logic_.index());
