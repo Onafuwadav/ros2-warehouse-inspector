@@ -1,0 +1,55 @@
+# ROS 2 workspace CI builds every package and runs its tests
+
+name: ROS 2
+
+on:
+  push:
+    branches: [main]
+    paths: ["ros2_ws/**", ".github/workflows/ros.yml"]
+  pull_request:
+    paths: ["ros2_ws/**", ".github/workflows/ros.yml"]
+  workflow_dispatch: {} 
+
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-24.04
+
+    # Runs on official ROS image so CI uses same installas during development
+    container: ros:jazzy-ros-base
+    defaults:
+      run:
+        shell: bash
+        working-directory: ros2_ws
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install dependencies
+        run: |
+          apt-get update
+          rosdep update --rosdistro "$ROS_DISTRO"
+          rosdep install --from-paths src --ignore-src -y --rosdistro "$ROS_DISTRO"
+
+      - name: Build
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          colcon build --event-handlers console_cohesion+
+
+      # colcon test runs gtest, pytest and linters for every package
+      - name: Test and lint
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          source install/setup.bash
+          colcon test --event-handlers console_cohesion+
+          colcon test-result --verbose
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ros-test-results
+          path: ros2_ws/build/*/test_results/
+          retention-days: 7
