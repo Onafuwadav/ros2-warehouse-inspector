@@ -30,11 +30,11 @@ def git_sha() -> str:
 # results file metadata
 def metadata(script: str, runs: list) -> dict:
     return {
-        'script': script,
+        'script': rel(script),
         'git_sha': git_sha(),
         'generated_utc': dt.datetime.now(dt.UTC).isoformat(timespec='seconds'),
         'environment': 'simulation',
-        'runs': [str(r) for r in runs],
+        'runs': [rel(r) for r in runs],
     }
 
 
@@ -56,7 +56,7 @@ def write_result(name: str, meta: dict, metrics: dict, rows: list | None = None)
     RESULTS_DIR.mkdir(exist_ok=True)
     out = RESULTS_DIR / f'{name}.json'
     with open(out, 'w') as f:
-        json.dump({'meta': meta, 'metrics': metrics}, f, indent=2, sort_keys=True)
+        json.dump({'meta': meta, 'metrics': metrics}, f, indent=2)
         f.write('\n')
     if rows:
         with open(RESULTS_DIR / f'{name}.csv', 'w', newline='') as f:
@@ -70,3 +70,8 @@ def write_result(name: str, meta: dict, metrics: dict, rows: list | None = None)
 def latest_runs(n: int = 1) -> list:
     runs = sorted((p for p in RUNS_DIR.glob('*') if p.is_dir()), key=lambda p: p.name)
     return runs[-n:]
+
+
+# Make paths relative to repo root
+def rel(path) -> str:
+    return str(pathlib.Path(path).resolve().relative_to(REPO_ROOT))

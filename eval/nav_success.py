@@ -45,10 +45,10 @@ def summarise(name: str, attempted, reached, duration, legs, dwells) -> dict:
         'run': name,
         'attempted': attempted,
         'success_rate': round(100 * reached / attempted, 1) if attempted else 0.0,
-        'time_s': round(duration, 1),
         'mean_time_to_goal_s': round(mean(legs), 1) if legs else 0.0,
         'max_time_to_goal_s': round(max(legs), 1) if legs else 0.0,
         'mean_dwell_s': round(mean(dwells), 1) if dwells else 0.0,
+        'time_s': round(duration, 1),
     }
 
 # combine runs for total summary
@@ -68,6 +68,7 @@ def compute(rows_by_run: dict) -> dict:
     )
     return {'laps': laps, 'total': total}
 
+
 def main():
     parser = argparse.ArgumentParser(description="Navigation reliability and mission timing")
     parser.add_argument('--runs', type=int, default=1)
@@ -76,7 +77,7 @@ def main():
     if not runs:
         raise SystemExit('No runs in eval/runs/')
     rows_by_run = {r.name: read_csv(r / 'inspection_results.csv') for r in runs}
-    
+
     # saves to results/nav_success.json
     out = write_result('nav_success', metadata(__file__, runs), compute(rows_by_run))
     print(f'wrote {out}')
