@@ -66,6 +66,9 @@ def compute(rows_by_run: dict) -> dict:
         [leg for s in all_s for leg in s['legs']],
         [d for s in all_s for d in s['dwells']],
     )
+    total['mean_lap_s'] = (
+        round(sum(s['duration_s'] for s in all_s) / len(laps), 1) if laps else 0.0
+    )
     return {'laps': laps, 'total': total}
 
 
