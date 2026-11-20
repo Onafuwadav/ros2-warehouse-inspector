@@ -26,6 +26,7 @@ from nav_msgs.msg import Odometry
 from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
 from rclpy.parameter import Parameter
+from rclpy.signals import SignalHandlerOptions
 
 
 def yaw(q):
@@ -106,7 +107,7 @@ def main():
     parser.add_argument('--run-id', default=dt.datetime.now().strftime('%Y%m%d-%H%M%S'))
     args = parser.parse_args()
 
-    rclpy.init()
+    rclpy.init(signal_handler_options=SignalHandlerOptions.NO)
     node = Recorder(RUNS_DIR / args.run_id)
     try:
         rclpy.spin(node)
