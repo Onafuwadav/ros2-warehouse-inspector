@@ -10,8 +10,8 @@ log/
 eval/runs/
 
 # Machine specific
-.vscode/*
-!.vscode/extensions.json
+**/.vscode/*
+!**/.vscode/extensions.json
 
 # Python
 __pycache__/
