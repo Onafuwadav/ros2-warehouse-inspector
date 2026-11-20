@@ -67,8 +67,13 @@ def write_result(name: str, meta: dict, metrics: dict, rows: list | None = None)
 
 
 # returns n most recent eval/runs/ folders
-def latest_runs(n: int = 1) -> list:
-    runs = sorted((p for p in RUNS_DIR.glob('*') if p.is_dir()), key=lambda p: p.name)
+def latest_runs(n: int = 1, prefix: str = '', runs_dir: pathlib.Path = RUNS_DIR) -> list:
+    
+    runs = sorted(
+        (p for p in runs_dir.glob(f'{prefix}*')
+         if p.is_dir() and (p / 'inspection_results.csv').exists()), 
+        key=lambda p: p.name
+        )
     return runs[-n:]
 
 

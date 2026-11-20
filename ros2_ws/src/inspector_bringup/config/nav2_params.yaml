@@ -124,15 +124,15 @@ controller_server: # turns path into /cmd_vel
     general_goal_checker:
       stateful: True
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.01
+      xy_goal_tolerance: 0.05
       yaw_goal_tolerance: 0.25
     FollowPath:
       plugin: "nav2_rotation_shim_controller::RotationShimController"
       primary_controller: "nav2_mppi_controller::MPPIController"
       angular_dist_threshold: 0.785
       forward_sampling_distance: 0.5
-      rotate_to_heading_angular_vel: 1.0
-      max_angular_accel: 3.2
+      rotate_to_heading_angular_vel: 0.6
+      max_angular_accel: 2.0
       simulate_ahead_time: 1.0
       rotate_to_goal_heading: true
       time_steps: 56

@@ -17,6 +17,7 @@ import csv
 import datetime as dt
 import math
 import pathlib
+import signal
 
 import rclpy
 from common import RUNS_DIR
@@ -103,6 +104,8 @@ class Recorder(Node):
 
 
 def main():
+    signal.signal(signal.SIGINT, signal.default_int_handler)  
+
     parser = argparse.ArgumentParser(description='Record run to CSV files in eval/runs/<run_id>')
     parser.add_argument('--run-id', default=dt.datetime.now().strftime('%Y%m%d-%H%M%S'))
     args = parser.parse_args()

@@ -4,9 +4,10 @@
 # Compute nav success, time to goal and dwell per lap writing results to results/nav_success.json
 
 import argparse
+import pathlib
 from statistics import mean
 
-from common import latest_runs, metadata, read_csv, write_result
+from common import RUNS_DIR, latest_runs, metadata, read_csv, write_result
 
 NAV_FAILED = 4
 
@@ -75,10 +76,12 @@ def compute(rows_by_run: dict) -> dict:
 def main():
     parser = argparse.ArgumentParser(description="Navigation reliability and mission timing")
     parser.add_argument('--runs', type=int, default=1)
+    parser.add_argument('--prefix', default='')
+    parser.add_argument('--runs-dir', type=pathlib.Path, default=RUNS_DIR)
     args = parser.parse_args()
-    runs = latest_runs(args.runs)
+    runs = latest_runs(args.runs, args.prefix, args.runs_dir)
     if not runs:
-        raise SystemExit('No runs in eval/runs/')
+        raise SystemExit(f'No runs matching "{args.prefix}*" in {args.runs_dir}')
     rows_by_run = {r.name: read_csv(r / 'inspection_results.csv') for r in runs}
 
     # saves to results/nav_success.json
