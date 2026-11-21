@@ -163,6 +163,21 @@ All numbers below come from scripts in `eval/` which are re-run by `eval/run_all
 This data from `eval/nav_success.py` shows how reliable the robot is and how quickly it gets around. Each row shows data for a full patrol of all 16 waypoints then the last row is combined data
 
 <!-- results:nav:start -->
+| Lap | Waypoints attempted | Success rate (%) | Lap time (s) | Mean time to goal (s) | Max time to goal (s) | Mean dwell time per shelf (s) |
+|---|---|---|---|---|---|---|
+| tuned01 | 16 | 93.8 | 358.6 | 19.8 | 34.2 | 5.1 |
+| tuned02 | 16 | 93.8 | 408.5 | 22.2 | 52.3 | 5.1 |
+| tuned03 | 16 | 100.0 | 363.9 | 19.2 | 35.9 | 5.0 |
+| tuned04 | 16 | 100.0 | 393.9 | 21.2 | 42.9 | 5.0 |
+| tuned05 | 16 | 100.0 | 387.4 | 20.8 | 36.8 | 5.1 |
+| tuned06 | 16 | 100.0 | 353.5 | 18.5 | 36.4 | 5.1 |
+| tuned07 | 16 | 100.0 | 365.6 | 19.3 | 40.4 | 5.1 |
+| tuned08 | 16 | 100.0 | 341.8 | 17.7 | 35.0 | 5.1 |
+| tuned09 | 16 | 100.0 | 354.9 | 18.6 | 39.2 | 5.1 |
+| tuned10 | 16 | 100.0 | 369.2 | 19.5 | 40.5 | 5.1 |
+| **All laps** | 160 | 98.8 | 369.7 | 19.7 | 52.3 | 5.1 |
+
+_From `eval/nav_success.py` at commit `69b8ee9`_
 <!-- results:nav:end -->
 
 </details>
@@ -257,7 +272,7 @@ This data is from `eval/assistant_eval.py` and shows that the assistant's answer
 - [x] Warehouse, robot spawn and teleoperation
 - [x] SLAM map, Localisation (AMCL) and Nav2 tuning
 - [x] Autonomous patrol with a unit tested mission state machine
-- [ ] Navigation success, recorded time to goal over 10 laps and ROS CI
+- [x] Navigation success, recorded time to goal over 10 laps and ROS CI
 - [ ] Camera, OpenCV ArUco detection and image sharpness check
 - [ ] EKF localisation and localisation error checked against ground truth
 - [ ] FastAPI/PostgreSQL telemetry backend and live React dashboard
