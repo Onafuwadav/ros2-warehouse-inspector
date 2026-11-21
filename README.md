@@ -8,11 +8,9 @@
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" />
   </a>
-  <!-- ROS build and test
   <a href="https://github.com/Onafuwadav/ros2-warehouse-inspector/actions/workflows/ros.yml">
     <img src="https://github.com/Onafuwadav/ros2-warehouse-inspector/actions/workflows/ros.yml/badge.svg" alt="ROS" />
   </a>
-  -->
   <!-- Backend tests
   <a href="https://github.com/Onafuwadav/ros2-warehouse-inspector/actions/workflows/backend.yml">
     <img src="https://github.com/Onafuwadav/ros2-warehouse-inspector/actions/workflows/backend.yml/badge.svg" alt="Backend" />
@@ -118,7 +116,6 @@ flowchart LR
 -->
 
 
-<!-- Installation
 ### Installation
 ```bash
 git clone https://github.com/Onafuwadav/ros2-warehouse-inspector.git
@@ -127,31 +124,40 @@ rosdep install --from-paths src --ignore-src -y
 colcon build
 source install/setup.bash
 ```
--->
 
 
-<!-- Run Locally
 ### Run Locally
 | Command | What it does |
 |---|---|
 | `ros2 launch inspector_bringup navigation.launch.py` | Launches warehouse, AMCL, Nav2 and RViz on the saved map |
 | `ros2 launch inspector_bringup inspection.launch.py` | Starts all the inspection nodes and backend bridge |
-| `docker compose up --build` | Builds images then starts the backend, database and dashboard |
 | `colcon test && colcon test-result --verbose` | Runs unit tests and ROS linters |
+<!--
+| `docker compose up --build` | Builds images then starts the backend, database and dashboard |
 -->
 
 
-<!-- Usage
 ## Usage
-### Run a patrol
+
+### Start simulation
+```bash
+ros2 launch inspector_bringup navigation.launch.py  
+ros2 launch inspector_bringup inspection.launch.py  
+```
+
+### Run patrol
 ```bash
 ros2 action send_goal --feedback /inspect_shelves \
   inspector_interfaces/action/InspectShelves "{shelves: [shelf_B1, shelf_A1], laps: 1}"
 ```
-An empty `shelves: []` visits every shelf
--->
+An empty `shelves: []` visits every shelf in the waypoint file order. Listed shelves are visited in the order given, both sides of each shelf
 
-
+### Reproduce results
+```bash
+bash eval/run_laps.sh 10
+python3 eval/nav_success.py --runs 10
+python3 eval/update_readme.py
+```
 
 ## Results
 
