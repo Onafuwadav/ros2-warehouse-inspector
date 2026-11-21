@@ -1,5 +1,5 @@
 """
-Navigate warehouse with Nav2 with AMCL localisation
+Navigate warehouse with Nav2 with AMCL localisation.
 
 Run Command:
   ros2 launch inspector_bringup navigation.launch.py

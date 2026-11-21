@@ -205,7 +205,7 @@ private:
     }
     apply(logic_.onTick(nowSeconds()));
     if (!active_goal_) {
-      return; 
+      return;
     }
     publishFeedback();
   }
@@ -342,7 +342,7 @@ private:
   void publishFeedback()
   {
     if (!active_goal_) {
-      return; 
+      return;
     }
     auto feedback = std::make_shared<InspectShelves::Feedback>();
     feedback->state = toString(logic_.state());
