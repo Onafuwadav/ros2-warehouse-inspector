@@ -1,0 +1,33 @@
+# Inspection waypoints in map frame for inspector_mission
+#
+# Waypoints derived from config/warehouse_markers.yaml
+# new yaw = yaw * -1 (need to face in opposide direction marker is facing)
+# new y = y - 0.8 (bot stops in front of marker by standoff distance)
+# map = world shifted by the spawn pose:
+# new x = x - (-6.0)
+# new y = y - (0.0)
+
+
+# TODO:
+#   - check every pose is reachable in the saved map
+#   - camera yaw or: compute it in the mission node from the camera mount angle
+
+standoff_m: 0.8
+frame_id: map
+waypoints:
+  - {shelf: shelf_A1, side: aisle, marker_id: 0, x: 2.400, y: 0.099, yaw: 1.5708}
+  - {shelf: shelf_B1, side: aisle, marker_id: 4, x: 2.400, y: -0.099, yaw: -1.5708}
+  - {shelf: shelf_A2, side: aisle, marker_id: 1, x: 4.800, y: 0.099, yaw: 1.5708}
+  - {shelf: shelf_B2, side: aisle, marker_id: 5, x: 4.800, y: -0.099, yaw: -1.5708}
+  - {shelf: shelf_A3, side: aisle, marker_id: 2, x: 7.200, y: 0.099, yaw: 1.5708}
+  - {shelf: shelf_B3, side: aisle, marker_id: 6, x: 7.200, y: -0.099, yaw: -1.5708}
+  - {shelf: shelf_A4, side: aisle, marker_id: 3, x: 9.600, y: 0.099, yaw: 1.5708}
+  - {shelf: shelf_B4, side: aisle, marker_id: 7, x: 9.600, y: -0.099, yaw: -1.5708}
+  - {shelf: shelf_A4, side: wall, marker_id: 11, x: 9.600, y: 2.301, yaw: -1.5708}
+  - {shelf: shelf_A3, side: wall, marker_id: 10, x: 7.200, y: 2.301, yaw: -1.5708}
+  - {shelf: shelf_A2, side: wall, marker_id: 9, x: 4.800, y: 2.301, yaw: -1.5708}
+  - {shelf: shelf_A1, side: wall, marker_id: 8, x: 2.400, y: 2.301, yaw: -1.5708}
+  - {shelf: shelf_B1, side: wall, marker_id: 12, x: 2.400, y: -2.301, yaw: 1.5708}
+  - {shelf: shelf_B2, side: wall, marker_id: 13, x: 4.800, y: -2.301, yaw: 1.5708}
+  - {shelf: shelf_B3, side: wall, marker_id: 14, x: 7.200, y: -2.301, yaw: 1.5708}
+  - {shelf: shelf_B4, side: wall, marker_id: 15, x: 9.600, y: -2.301, yaw: 1.5708}

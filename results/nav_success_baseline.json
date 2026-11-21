@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "script": "eval/nav_success.py",
+    "git_sha": "426c8cf",
+    "generated_utc": "2026-11-21T01:14:23+00:00",
+    "environment": "simulation",
+    "runs": [
+      "eval/runs/baseline/lap01",
+      "eval/runs/baseline/lap02",
+      "eval/runs/baseline/lap03",
+      "eval/runs/baseline/lap04",
+      "eval/runs/baseline/lap05",
+      "eval/runs/baseline/lap06",
+      "eval/runs/baseline/lap07",
+      "eval/runs/baseline/lap08",
+      "eval/runs/baseline/lap09",
+      "eval/runs/baseline/lap10"
+    ]
+  },
+  "metrics": {
+    "laps": [
+      {
+        "run": "lap01",
+        "attempted": 16,
+        "success_rate": 100.0,
+        "mean_time_to_goal_s": 37.0,
+        "max_time_to_goal_s": 90.5,
+        "mean_dwell_s": 5.0,
+        "time_s": 630.5
+      },
+      {
+        "run": "lap02",
+        "attempted": 16,
+        "success_rate": 100.0,
+        "mean_time_to_goal_s": 31.3,
+        "max_time_to_goal_s": 72.1,
+        "mean_dwell_s": 5.0,
+        "time_s": 544.5
+      },
+      {
+        "run": "lap03",
+        "attempted": 16,
+        "success_rate": 93.8,
+        "mean_time_to_goal_s": 33.1,
+        "max_time_to_goal_s": 124.2,
+        "mean_dwell_s": 5.1,
+        "time_s": 534.7
+      },
+      {
+        "run": "lap04",
+        "attempted": 16,
+        "success_rate": 100.0,
+        "mean_time_to_goal_s": 26.4,
+        "max_time_to_goal_s": 71.8,
+        "mean_dwell_s": 5.1,
+        "time_s": 471.5
+      },
+      {
+        "run": "lap05",
+        "attempted": 16,
+        "success_rate": 100.0,
+        "mean_time_to_goal_s": 35.5,
+        "max_time_to_goal_s": 110.3,
+        "mean_dwell_s": 5.0,
+        "time_s": 608.1
+      },
+      {
+        "run": "lap06",
+        "attempted": 16,
+        "success_rate": 100.0,
+        "mean_time_to_goal_s": 22.8,
+        "max_time_to_goal_s": 36.8,
+        "mean_dwell_s": 5.0,
+        "time_s": 417.1
+      },
+      {
+        "run": "lap07",
+        "attempted": 16,
+        "success_rate": 100.0,
+        "mean_time_to_goal_s": 29.5,
+        "max_time_to_goal_s": 82.0,
+        "mean_dwell_s": 5.1,
+        "time_s": 519.2
+      },
+      {
+        "run": "lap08",
+        "attempted": 16,
+        "success_rate": 100.0,
+        "mean_time_to_goal_s": 22.7,
+        "max_time_to_goal_s": 46.1,
+        "mean_dwell_s": 5.1,
+        "time_s": 416.5
+      },
+      {
+        "run": "lap09",
+        "attempted": 16,
+        "success_rate": 100.0,
+        "mean_time_to_goal_s": 26.8,
+        "max_time_to_goal_s": 63.3,
+        "mean_dwell_s": 5.1,
+        "time_s": 478.1
+      },
+      {
+        "run": "lap10",
+        "attempted": 16,
+        "success_rate": 100.0,
+        "mean_time_to_goal_s": 29.5,
+        "max_time_to_goal_s": 58.5,
+        "mean_dwell_s": 5.1,
+        "time_s": 518.2
+      }
+    ],
+    "total": {
+      "run": "total",
+      "attempted": 160,
+      "success_rate": 99.4,
+      "mean_time_to_goal_s": 29.4,
+      "max_time_to_goal_s": 124.2,
+      "mean_dwell_s": 5.1,
+      "time_s": 5138.4,
+      "mean_lap_s": 513.8
+    }
+  }
+}

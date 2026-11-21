@@ -1,5 +1,6 @@
 """
-Build map of warehouse while driving
+Build map of warehouse while driving.
+
 - Reads scan and odom -> base TF and publishes map and map -> odom TF
 
 Run command:
@@ -46,7 +47,6 @@ def generate_launch_description():
         condition=IfCondition(sim),
     )
 
-
     # include slam_toolbox launch file to handle lifecycle
     slam_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -56,4 +56,3 @@ def generate_launch_description():
     )
 
     return LaunchDescription(args + [sim_launch, slam_launch])
-
