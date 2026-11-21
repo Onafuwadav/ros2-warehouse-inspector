@@ -153,25 +153,19 @@ An empty `shelves: []` visits every shelf
 
 
 
-<!--
 ## Results
 
 All numbers below come from scripts in `eval/` which are re-run by `eval/run_all.sh` and then `eval/update_readme.py` updates the tables with each table ending with the commit SHA it came from
--->
 
-<!-- M3
 <details>
   <summary>Navigation over 10 laps</summary>
 
 This data from `eval/nav_success.py` shows how reliable the robot is and how quickly it gets around. Each row shows data for a full patrol of all 16 waypoints then the last row is combined data
--->
 
 <!-- results:nav:start -->
 <!-- results:nav:end -->
 
-<!-- M3
 </details>
--->
 
 <!-- M4
 <details>
